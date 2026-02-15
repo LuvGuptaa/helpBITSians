@@ -1,0 +1,12 @@
+{
+  "name": "helpbitsians",
+  "version": "1.0.0",
+  "description": "BITS Pilani Leaves Status Website",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
