@@ -58,8 +58,7 @@
     }
 
     function saveLeaveApplication(application) {
-        var leaves = getLeaves();
-        leaves.unshift(application);
+        var leaves = [application];
         setLeaves(leaves);
         return leaves;
     }
@@ -94,15 +93,17 @@
         }
 
         var leaves = getLeaves();
-        for (var i = 0; i < leaves.length; i++) {
-            var leave = leaves[i] || {};
+        var latestLeave = leaves.length ? leaves[0] : null;
+        if (!latestLeave) {
+            return;
+        }
+
+        for (var i = 0; i < 1; i++) {
+            var leave = latestLeave;
             var row = document.createElement("tr");
             row.setAttribute("align", "left");
             row.setAttribute("valign", "middle");
             row.style.fontSize = "0.8rem";
-            if (i % 2 === 1) {
-                row.style.backgroundColor = "White";
-            }
 
             row.appendChild(buildCell(String(i + 1)));
             row.appendChild(buildCell(safeText(leave.id)));
