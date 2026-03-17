@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <script src="Scripts/leave-data.js"></script>
     <script src="Scripts/leave-apply.js"></script>
     <link rel="stylesheet" href="css/leave-apply.css" />
@@ -39,6 +40,6 @@
         <input type="date" id="RETURN" name="RETURN" />
       </form>
     </div>
-    <button id="applyLeaveButton" onclick="HelpBitsApply.applyLeave()">GENERATE</button>
+    <button id="applyLeaveButton" onclick="modifyPdf()">GENERATE</button>
   </body>
 </html>

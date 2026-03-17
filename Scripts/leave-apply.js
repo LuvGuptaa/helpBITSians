@@ -1,142 +1,135 @@
-var HelpBitsApply = (function () {
-    var wardens = {
-        "Shankar Bhawan": "Sharad Shrivastava",
-        "Krishna Bhawan": "Prof. Bibhas Ranjan Sarkar",
-        "Srinivasa Ramanujan Bhawan": "Prof. Bibhas Ranjan Sarkar",
-        "Gandhi Bhawan": "Nitin Chaturvedi",
-        "Vishwakarma Bhawan": "Krishnendra Shekhawat",
-        "Meera Bhawan": "Surekha Bhanot",
-        "Vyas Bhawan": "Kumar Sankar Bhattacharya",
-        "Ram Bhawan": "Praveen Kumar A.V.",
-        "Budh Bhawan": "MM Pandey"
-    };
+const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib;
 
-    function getValue(id) {
-        var el = document.getElementById(id);
-        return el ? (el.value || "").trim() : "";
-    }
+async function modifyPdf() {
+        // Fetch an existing PDF document
+        const url = 'leave.pdf';
+        const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
 
-    function toBase64(uint8Array) {
-        var binary = "";
-        var len = uint8Array.length;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(uint8Array[i]);
-        }
-        return window.btoa(binary);
-    }
+        // Load a PDFDocument from the existing PDF bytes
+        const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-    function downloadDataUrl(fileName, dataUrl) {
-        var link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+        // Embed the Helvetica font
+        const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-    function formatLongDate(dateValue) {
-        var date = new Date(dateValue + "T00:00:00");
-        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
-    }
+        // Get the first page of the document
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
 
-    async function buildPdfBytes(payload) {
-        var PDFDocument = PDFLib.PDFDocument;
-        var StandardFonts = PDFLib.StandardFonts;
-        var rgb = PDFLib.rgb;
+        var ID = document.getElementById("ID");
+        var name = document.getElementById("name");
+        var contact = document.getElementById("contact");
+        var room = document.getElementById("room");
+        var hostel = document.getElementById("hostel");
+        var reason = document.getElementById("reason");
+        var departureInput = document.getElementById("DEPARTURE");
+        var returnInput = document.getElementById("RETURN");
+        var departure = departureInput.valueAsNumber;
+        var returnn = returnInput.valueAsNumber;
+        var returnndate = new Date(returnn);
+        var departuredate = new Date(departure);
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var wardens = ['Sharad Shrivastava', 'Prof. Bibhas Ranjan Sarkar', 'Prof. Bibhas Ranjan Sarkar', 'Nitin Chaturvedi', 'Krishnendra Shekhawat', 'Surekha Bhanot', 'Kumar Sankar Bhattacharya', 'Praveen Kumar A.V.', 'MM Pandey'];
+        var hostels = ['Shankar Bhawan', 'Krishna Bhawan', 'Krishna Bhawan', 'Gandhi Bhawan', 'Vishwakarma Bhawan', 'Meera Bhawan', 'Vyas Bhawan', 'Ram Bhawan', 'Budh Bhawan'];
 
-        var pdfDoc = await PDFDocument.create();
-        var page = pdfDoc.addPage([595.28, 841.89]);
-        var font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-        var bold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-
-        page.drawText("LEAVE APPLICATION", { x: 210, y: 790, size: 20, font: bold, color: rgb(0, 0, 0) });
-        page.drawText("BITS Pilani - Student Welfare Division", { x: 165, y: 770, size: 11, font: font, color: rgb(0, 0, 0) });
-
-        var y = 720;
-        var gap = 28;
-
-        function write(label, value) {
-            page.drawText(label, { x: 70, y: y, size: 12, font: bold, color: rgb(0, 0, 0) });
-            page.drawText(String(value || ""), { x: 250, y: y, size: 12, font: font, color: rgb(0, 0, 0) });
-            y -= gap;
+        if (!ID.value || !name.value || !contact.value || !room.value || !reason.value || !departureInput.value || !returnInput.value) {
+                alert('Please fill all fields before generating leave PDF.');
+                return;
         }
 
-        write("BITS ID", payload.id);
-        write("Name", payload.name.toUpperCase());
-        write("Contact", payload.contact);
-        write("Hostel", payload.hostel);
-        write("Room No.", payload.room);
-        write("Warden", wardens[payload.hostel] || "");
-        write("Departure Date", formatLongDate(payload.departureDate));
-        write("Return Date", formatLongDate(payload.returnDate));
-        write("Reason", payload.reason);
-        write("Applied On", formatLongDate(payload.appliedOn));
+        if (returnn < departure) {
+                alert('Return date cannot be before departure date.');
+                return;
+        }
 
-        page.drawText("This leave approval slip is system generated.", {
-            x: 70,
-            y: y - 20,
-            size: 10,
-            font: font,
-            color: rgb(0.2, 0.2, 0.2)
+        // Get the width and height of thne first page
+        const { width, height } = firstPage.getSize();
+        console.log(width, height);
+        firstPage.drawText(ID.value, {
+                x: 302,
+                y: 710,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
         });
+        firstPage.drawText(name.value.toUpperCase(), {
+                x: 302,
+                y: 688,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(contact.value, {
+                x: 302,
+                y: 667,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(hostel.value, {
+                x: 302,
+                y: 647,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(room.value, {
+                x: 302,
+                y: 627,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(wardens[hostels.indexOf(hostel.value)], {
+                x: 302,
+                y: 607,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(departuredate.getDate().toString() + '-' + months[departuredate.getMonth()] + '-' + (departuredate.getYear() - 100 + 2000).toString(), {
+                x: 302,
+                y: 587,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        firstPage.drawText(returnndate.getDate().toString() + '-' + months[returnndate.getMonth()] + '-' + (returnndate.getYear() - 100 + 2000).toString(), {
+                x: 302,
+                y: 567,
+                size: 12.2,
+                font: helveticaFont,
+                color: rgb(0, 0, 0)
+        });
+        const pdfBytes = await pdfDoc.save();
 
-        return await pdfDoc.save();
-    }
-
-    async function applyLeave() {
-        var payload = {
-            id: getValue("ID"),
-            name: getValue("name"),
-            contact: getValue("contact"),
-            room: getValue("room"),
-            hostel: getValue("hostel"),
-            departureDate: getValue("DEPARTURE"),
-            returnDate: getValue("RETURN"),
-            reason: getValue("reason"),
-            appliedOn: new Date().toISOString().slice(0, 10)
-        };
-
-        if (!payload.id || !payload.name || !payload.contact || !payload.room || !payload.departureDate || !payload.returnDate || !payload.reason) {
-            alert("Please fill all fields before generating leave PDF.");
-            return;
+        if (typeof download === 'function') {
+                download(pdfBytes, ID.value + '.pdf', 'application/pdf');
         }
 
-        var dep = new Date(payload.departureDate + "T00:00:00");
-        var ret = new Date(payload.returnDate + "T00:00:00");
-        if (ret.getTime() < dep.getTime()) {
-            alert("Return date cannot be before departure date.");
-            return;
+        var binary = '';
+        for (var i = 0; i < pdfBytes.length; i++) {
+                binary += String.fromCharCode(pdfBytes[i]);
+        }
+        var base64 = window.btoa(binary);
+        var pdfDataUrl = 'data:application/pdf;base64,' + base64;
+
+        if (window.HelpBitsLeaves) {
+                window.HelpBitsLeaves.saveLeaveApplication({
+                        id: ID.value,
+                        name: name.value,
+                        contact: contact.value,
+                        room: room.value,
+                        hostel: hostel.value,
+                        reason: reason.value,
+                        departureDate: departureInput.value,
+                        returnDate: returnInput.value,
+                        appliedOn: new Date().toISOString().slice(0, 10),
+                        txnId: window.HelpBitsLeaves.generateTxnId(),
+                        pdfDataUrl: pdfDataUrl
+                });
         }
 
-        var btn = document.getElementById("applyLeaveButton");
-        if (btn) {
-            btn.disabled = true;
-            btn.textContent = "GENERATING...";
-        }
-
-        try {
-            var pdfBytes = await buildPdfBytes(payload);
-            var base64 = toBase64(pdfBytes);
-            var dataUrl = "data:application/pdf;base64," + base64;
-
-            payload.txnId = window.HelpBitsLeaves.generateTxnId();
-            payload.pdfDataUrl = dataUrl;
-
-            window.HelpBitsLeaves.saveLeaveApplication(payload);
-            downloadDataUrl(payload.id + ".pdf", dataUrl);
-            window.location.href = "index.html";
-        } catch (e) {
-            alert("Unable to generate leave PDF. Please try again.");
-        } finally {
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = "GENERATE";
-            }
-        }
-    }
-
-    return {
-        applyLeave: applyLeave
-    };
-})();
+        setTimeout(function () {
+                window.location.href = 'index.html';
+        }, 150);
+}
