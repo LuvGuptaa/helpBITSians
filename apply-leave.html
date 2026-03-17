@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="Scripts/leave-data.js"></script>
+    <script src="Scripts/leave-apply.js"></script>
+    <link rel="stylesheet" href="css/leave-apply.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply For Leaves</title>
+  </head>
+
+  <body>
+    <h1>LEAVE GENERATOR</h1>
+    <div>
+      <form action="javascript:void(0);">
+        <input type="text" id="ID" name="ID" placeholder="BITS ID" />
+        <input type="text" id="name" name="name" placeholder="NAME" />
+        <input type="text" id="contact" name="contact" placeholder="CONTACT NO." />
+        <input type="text" id="room" name="room" placeholder="ROOM NO." />
+
+        <select id="hostel" name="hostel">
+          <option value="Shankar Bhawan">Shankar Bhawan</option>
+          <option value="Krishna Bhawan">Krishna Bhawan</option>
+          <option value="Srinivasa Ramanujan Bhawan">Srinivasa Ramanujan Bhawan</option>
+          <option value="Gandhi Bhawan">Gandhi Bhawan</option>
+          <option value="Vishwakarma Bhawan">Vishwakarma Bhawan</option>
+          <option value="Meera Bhawan">Meera Bhawan</option>
+          <option value="Vyas Bhawan">Vyas Bhawan</option>
+          <option value="Ram Bhawan">Ram Bhawan</option>
+          <option value="Budh Bhawan">Budh Bhawan</option>
+        </select>
+        <input type="text" id="reason" name="reason" placeholder="LEAVE REASON" />
+        <br />
+        <label for="DEPARTURE">DEPARTURE DATE:</label>
+        <input type="date" id="DEPARTURE" name="DEPARTURE" />
+        <br />
+        <br />
+        <label for="RETURN">RETURN DATE:</label>
+        <input type="date" id="RETURN" name="RETURN" />
+      </form>
+    </div>
+    <button id="applyLeaveButton" onclick="HelpBitsApply.applyLeave()">GENERATE</button>
+  </body>
+</html>

@@ -190,7 +190,7 @@
 
                       <ul class="mainNav">
                         <li>
-                          <a href="Instructions.aspx">Apply For Leaves</a>
+                          <a href="apply-leave.html">Apply For Leaves</a>
                         </li>
                         <li>
                           <a
@@ -587,6 +587,12 @@
         theForm.oldOnSubmit = theForm.onsubmit;
         theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
         //]]>
+      </script>
+      <script type="text/javascript" src="Scripts/leave-data.js"></script>
+      <script type="text/javascript">
+        if (window.HelpBitsLeaves) {
+          window.HelpBitsLeaves.initStatusPage();
+        }
       </script>
     </form>
   </body>
