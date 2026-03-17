@@ -1,0 +1,1 @@
+// Footer initialisation placeholder

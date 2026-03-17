@@ -125,10 +125,26 @@
         //]]>
       </script>
 
-      <script
-        src="/SWD/WebResource.axd?d=76JYGT-fFf8r0iYRMo7z7NJNy1hohAMfBiRwiELlpoMWUho1Ml7EbaP0yW02Ho_a8s6hcAA_CP0JA62_vmb4ED_MIUHswiEmr3LBzRHit7k1&amp;t=637806966815382119"
-        type="text/javascript"
-      ></script>
+      <script type="text/javascript">
+        function WebForm_SaveScrollPositionSubmit(eventTarget) {
+          var hidden = document.getElementById("__SCROLLPOSITIONX");
+          if (hidden) hidden.value = window.pageXOffset || 0;
+          hidden = document.getElementById("__SCROLLPOSITIONY");
+          if (hidden) hidden.value = window.pageYOffset || 0;
+          if (typeof this.oldSubmit === "function") {
+            return this.oldSubmit(eventTarget);
+          }
+        }
+        function WebForm_SaveScrollPositionOnSubmit() {
+          var hidden = document.getElementById("__SCROLLPOSITIONX");
+          if (hidden) hidden.value = window.pageXOffset || 0;
+          hidden = document.getElementById("__SCROLLPOSITIONY");
+          if (hidden) hidden.value = window.pageYOffset || 0;
+          if (typeof this.oldOnSubmit === "function") {
+            return this.oldOnSubmit();
+          }
+        }
+      </script>
 
       <div>
         <input
