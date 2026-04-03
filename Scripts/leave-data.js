@@ -60,16 +60,15 @@
 
     function extractPdfBase64(leave) {
         var inlineBase64 = safeText(leave && leave.pdfBase64);
-        if (inlineBase64) {
+        if (/^[A-Za-z0-9+/=]+$/.test(inlineBase64)) {
             return inlineBase64;
         }
         var dataUrl = safeText(leave && leave.pdfDataUrl);
-        var marker = "base64,";
-        var markerIndex = dataUrl.indexOf(marker);
-        if (markerIndex === -1) {
+        var matched = dataUrl.match(/^data:application\/pdf;base64,([A-Za-z0-9+/=]+)$/i);
+        if (!matched) {
             return "";
         }
-        return dataUrl.slice(markerIndex + marker.length);
+        return matched[1];
     }
 
     function createPdfBlobUrl(base64) {
@@ -194,12 +193,12 @@
             if (pdfBlobUrl) {
                 createdPdfBlobUrls.push(pdfBlobUrl);
             }
-            downloadLink.href = pdfBlobUrl || safeText(leave.pdfDataUrl) || "#";
+            downloadLink.href = pdfBlobUrl || "#";
+            downloadLink.rel = "noopener noreferrer";
             if (isMobileSafari()) {
                 downloadLink.target = "_self";
             } else {
                 downloadLink.target = "_blank";
-                downloadLink.rel = "noopener noreferrer";
                 downloadLink.download = (safeText(leave.id) || "leave") + ".pdf";
             }
             var dlBold = document.createElement("b");
