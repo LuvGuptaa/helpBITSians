@@ -130,7 +130,8 @@ async function modifyPdf() {
             returnDate: returnInput.value,
             appliedOn: new Date().toISOString().slice(0, 10),
             txnId: window.HelpBitsLeaves.generateTxnId(),
-            pdfDataUrl: pdfDataUrl
+            pdfDataUrl: pdfDataUrl,
+            pdfBase64: base64
         });
     }
 

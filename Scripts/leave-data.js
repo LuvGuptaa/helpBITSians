@@ -1,5 +1,6 @@
 (function (window) {
     var STORAGE_KEY = "helpbits_leaves_v1";
+    var createdPdfBlobUrls = [];
 
     function pad(num) {
         return num < 10 ? "0" + num : String(num);
@@ -57,6 +58,56 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(leaves));
     }
 
+    function extractPdfBase64(leave) {
+        var inlineBase64 = safeText(leave && leave.pdfBase64);
+        if (inlineBase64) {
+            return inlineBase64;
+        }
+        var dataUrl = safeText(leave && leave.pdfDataUrl);
+        var marker = "base64,";
+        var markerIndex = dataUrl.indexOf(marker);
+        if (markerIndex === -1) {
+            return "";
+        }
+        return dataUrl.slice(markerIndex + marker.length);
+    }
+
+    function createPdfBlobUrl(base64) {
+        if (!base64) {
+            return "";
+        }
+        try {
+            var binary = window.atob(base64);
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            var blob = new Blob([bytes], { type: "application/pdf" });
+            return window.URL.createObjectURL(blob);
+        } catch (e) {
+            return "";
+        }
+    }
+
+    function revokeCreatedBlobUrls() {
+        if (!window.URL || !window.URL.revokeObjectURL) {
+            createdPdfBlobUrls = [];
+            return;
+        }
+        for (var i = 0; i < createdPdfBlobUrls.length; i++) {
+            window.URL.revokeObjectURL(createdPdfBlobUrls[i]);
+        }
+        createdPdfBlobUrls = [];
+    }
+
+    function isMobileSafari() {
+        var ua = window.navigator && window.navigator.userAgent ? window.navigator.userAgent : "";
+        var isAppleMobile = /iPhone|iPad|iPod/i.test(ua);
+        var isWebkit = /WebKit/i.test(ua);
+        var isOtherIOSBrowser = /CriOS|FxiOS|OPiOS|EdgiOS/i.test(ua);
+        return isAppleMobile && isWebkit && !isOtherIOSBrowser;
+    }
+
     function saveLeaveApplication(application) {
         var leaves = getLeaves();
         leaves.unshift(application);
@@ -88,6 +139,8 @@
         if (!tbody || !tbody.rows || tbody.rows.length === 0) {
             return;
         }
+
+        revokeCreatedBlobUrls();
 
         while (tbody.rows.length > 1) {
             tbody.deleteRow(1);
@@ -136,9 +189,19 @@
             var wrapDiv = document.createElement("div");
             wrapDiv.id = "leave_approval_" + i;
             var downloadLink = document.createElement("a");
-            downloadLink.href = safeText(leave.pdfDataUrl) || "#";
-            downloadLink.target = "_blank";
-            downloadLink.download = (safeText(leave.id) || "leave") + ".pdf";
+            var pdfBase64 = extractPdfBase64(leave);
+            var pdfBlobUrl = createPdfBlobUrl(pdfBase64);
+            if (pdfBlobUrl) {
+                createdPdfBlobUrls.push(pdfBlobUrl);
+            }
+            downloadLink.href = pdfBlobUrl || safeText(leave.pdfDataUrl) || "#";
+            if (isMobileSafari()) {
+                downloadLink.target = "_self";
+            } else {
+                downloadLink.target = "_blank";
+                downloadLink.rel = "noopener noreferrer";
+                downloadLink.download = (safeText(leave.id) || "leave") + ".pdf";
+            }
             var dlBold = document.createElement("b");
             dlBold.textContent = "Download Leave Approval";
             downloadLink.appendChild(dlBold);
