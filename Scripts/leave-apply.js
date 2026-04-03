@@ -28,8 +28,17 @@ async function modifyPdf() {
     var returnndate = new Date(returnn);
     var departuredate = new Date(departure);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var wardens = ['Sharad Shrivastava', 'Prof. Bibhas Ranjan Sarkar', 'Prof. Bibhas Ranjan Sarkar', 'Nitin Chaturvedi', 'Krishnendra Shekhawat', 'Surekha Bhanot', 'Kumar Sankar Bhattacharya', 'Praveen Kumar A.V.', 'MM Pandey'];
-    var hostels = ['Shankar Bhawan', 'Krishna Bhawan', 'Krishna Bhawan', 'Gandhi Bhawan', 'Vishwakarma Bhawan', 'Meera Bhawan', 'Vyas Bhawan', 'Ram Bhawan', 'Budh Bhawan'];
+    var wardenByHostel = {
+        'Shankar Bhawan': 'Sharad Shrivastava',
+        'Krishna Bhawan': 'Prof. Bibhas Ranjan Sarkar',
+        'Srinivasa Ramanujan Bhawan': 'Prof. Bibhas Ranjan Sarkar',
+        'Gandhi Bhawan': 'Nitin Chaturvedi',
+        'Vishwakarma Bhawan': 'Krishnendra Shekhawat',
+        'Meera Bhawan': 'Surekha Bhanot',
+        'Vyas Bhawan': 'Kumar Sankar Bhattacharya',
+        'Ram Bhawan': 'Praveen Kumar A.V.',
+        'Budh Bhawan': 'MM Pandey'
+    };
 
     if (!ID.value || !name.value || !contact.value || !room.value || !reason.value || !departureInput.value || !returnInput.value) {
         alert('Please fill all fields before generating leave PDF.');
@@ -79,21 +88,21 @@ async function modifyPdf() {
         font: helveticaFont,
         color: rgb(0, 0, 0)
     });
-    firstPage.drawText(wardens[hostels.indexOf(hostel.value)], {
+    firstPage.drawText(wardenByHostel[hostel.value] || '', {
         x: 302,
         y: 607,
         size: 12.2,
         font: helveticaFont,
         color: rgb(0, 0, 0)
     });
-    firstPage.drawText(departuredate.getDate().toString() + '-' + months[departuredate.getMonth()] + '-' + (departuredate.getYear() - 100 + 2000).toString(), {
+    firstPage.drawText(departuredate.getDate().toString() + '-' + months[departuredate.getMonth()] + '-' + departuredate.getFullYear().toString(), {
         x: 302,
         y: 587,
         size: 12.2,
         font: helveticaFont,
         color: rgb(0, 0, 0)
     });
-    firstPage.drawText(returnndate.getDate().toString() + '-' + months[returnndate.getMonth()] + '-' + (returnndate.getYear() - 100 + 2000).toString(), {
+    firstPage.drawText(returnndate.getDate().toString() + '-' + months[returnndate.getMonth()] + '-' + returnndate.getFullYear().toString(), {
         x: 302,
         y: 567,
         size: 12.2,
@@ -101,10 +110,6 @@ async function modifyPdf() {
         color: rgb(0, 0, 0)
     });
     const pdfBytes = await pdfDoc.save();
-
-    if (typeof download === 'function') {
-        download(pdfBytes, ID.value + '.pdf', 'application/pdf');
-    }
 
     var binary = '';
     for (var i = 0; i < pdfBytes.length; i++) {
@@ -128,6 +133,8 @@ async function modifyPdf() {
             pdfDataUrl: pdfDataUrl
         });
     }
+
+    alert('Leave application submitted successfully. You can download the approval PDF from the Leaves Status page.');
 
     setTimeout(function () {
         window.location.href = 'index.html';

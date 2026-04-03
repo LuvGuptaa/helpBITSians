@@ -58,7 +58,8 @@
     }
 
     function saveLeaveApplication(application) {
-        var leaves = [application];
+        var leaves = getLeaves();
+        leaves.unshift(application);
         setLeaves(leaves);
         return leaves;
     }
@@ -93,13 +94,12 @@
         }
 
         var leaves = getLeaves();
-        var latestLeave = leaves.length ? leaves[0] : null;
-        if (!latestLeave) {
+        if (!leaves.length) {
             return;
         }
 
-        for (var i = 0; i < 1; i++) {
-            var leave = latestLeave;
+        for (var i = 0; i < leaves.length; i++) {
+            var leave = leaves[i];
             var row = document.createElement("tr");
             row.setAttribute("align", "left");
             row.setAttribute("valign", "middle");
