@@ -345,7 +345,7 @@
                                   <tr>
                                     <td>Approval Status</td>
                                     <td>:</td>
-                                    <td><span id="detail-status" style="color: DarkGreen; font-weight: bold;">Approved</span></td>
+                                    <td><span id="detail-status" style="font-weight: bold;"></span></td>
                                   </tr>
                                   <tr>
                                     <td>Approval Remarks</td>
@@ -441,6 +441,8 @@
 
         function bitsEmailFromId(id) {
           if (!id) return "";
+          // BITS ID format: YYYY[Branch][Digit][Dept][Serial][Campus]
+          // e.g. 2022A8PS0622P -> year=2022, serial=0622 -> f20220622@pilani.bits-pilani.ac.in
           var match = id.match(/^(\d{4})[A-Z]\d[A-Z]{2}(\d{4})[A-Z]$/);
           if (match) {
             return "f" + match[1] + match[2] + "@pilani.bits-pilani.ac.in";
@@ -525,11 +527,29 @@
           var warden = wardenByHostel[hostel] || "";
           setText("detail-processed-by", warden);
 
+          // Simulate processing: approved the following day at start of business (08:56 AM).
+          // This mirrors the real SWD system where a warden reviews and approves overnight.
+          var APPROVAL_OFFSET_DAYS = 1;
+          var APPROVAL_HOUR = 8;
+          var APPROVAL_MINUTE = 56;
           var processedDate = leave.appliedOn ? new Date(leave.appliedOn) : null;
           if (processedDate && !isNaN(processedDate.getTime())) {
-            processedDate.setDate(processedDate.getDate() + 1);
-            processedDate.setHours(8, 56, 0, 0);
+            processedDate.setDate(processedDate.getDate() + APPROVAL_OFFSET_DAYS);
+            processedDate.setHours(APPROVAL_HOUR, APPROVAL_MINUTE, 0, 0);
             setText("detail-processed-on", formatDateTime(processedDate.toISOString()));
+          }
+
+          var statusEl = document.getElementById("detail-status");
+          if (statusEl) {
+            var status = leave.status || "Approved";
+            statusEl.textContent = status;
+            if (status === "Approved") {
+              statusEl.style.color = "DarkGreen";
+            } else if (status === "Rejected") {
+              statusEl.style.color = "Red";
+            } else {
+              statusEl.style.color = "DarkOrange";
+            }
           }
         }
 
