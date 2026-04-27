@@ -78,6 +78,38 @@
         return td;
     }
 
+    function sanitizeFileName(value) {
+        var name = safeText(value).replace(/[^a-zA-Z0-9._-]/g, "_");
+        return name || "leave";
+    }
+
+    function triggerDownloadFromDataUrl(dataUrl, fileName) {
+        if (!dataUrl || dataUrl.indexOf("data:application/pdf") !== 0) {
+            alert("Leave approval PDF is not available for download.");
+            return;
+        }
+
+        fetch(dataUrl)
+            .then(function (response) {
+                return response.blob();
+            })
+            .then(function (blob) {
+                var objectUrl = URL.createObjectURL(blob);
+                var tempLink = document.createElement("a");
+                tempLink.href = objectUrl;
+                tempLink.download = fileName;
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+                setTimeout(function () {
+                    URL.revokeObjectURL(objectUrl);
+                }, 1000);
+            })
+            .catch(function () {
+                alert("Unable to download leave approval right now. Please try again.");
+            });
+    }
+
     function renderLeavesTable() {
         var table = document.getElementById("ctl00_ContentPlaceHolder1_DG1");
         if (!table) {
@@ -136,9 +168,18 @@
             var wrapDiv = document.createElement("div");
             wrapDiv.id = "leave_approval_" + i;
             var downloadLink = document.createElement("a");
-            downloadLink.href = safeText(leave.pdfDataUrl) || "#";
-            downloadLink.target = "_blank";
-            downloadLink.download = (safeText(leave.id) || "leave") + ".pdf";
+            downloadLink.href = "javascript:void(0)";
+            downloadLink.onclick = (function (pdfDataUrl, leaveId) {
+                return function (event) {
+                    if (event && event.preventDefault) {
+                        event.preventDefault();
+                    }
+                    triggerDownloadFromDataUrl(
+                        safeText(pdfDataUrl),
+                        sanitizeFileName(leaveId) + ".pdf"
+                    );
+                };
+            })(leave.pdfDataUrl, leave.id);
             var dlBold = document.createElement("b");
             dlBold.textContent = "Download Leave Approval";
             downloadLink.appendChild(dlBold);
