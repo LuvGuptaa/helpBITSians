@@ -125,7 +125,7 @@
 
             var actionTd = buildCell("");
             var actionLink = document.createElement("a");
-            actionLink.href = "javascript:void(0)";
+            actionLink.href = "leave-details.html?idx=" + i;
             var actionBold = document.createElement("b");
             actionBold.textContent = "View Details";
             actionLink.appendChild(actionBold);

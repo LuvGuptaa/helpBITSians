@@ -128,7 +128,7 @@ async function modifyPdf() {
             reason: reason.value,
             departureDate: departureInput.value,
             returnDate: returnInput.value,
-            appliedOn: new Date().toISOString().slice(0, 10),
+            appliedOn: new Date().toISOString(),
             txnId: window.HelpBitsLeaves.generateTxnId(),
             pdfDataUrl: pdfDataUrl
         });

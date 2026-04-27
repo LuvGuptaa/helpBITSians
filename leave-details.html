@@ -1,0 +1,544 @@
+<html>
+  <script type="text/javascript">
+    window["_gaUserPrefs"] = {
+      ioo: function () {
+        return true;
+      },
+    };
+  </script>
+  <head>
+    <title>Leave Application Details</title>
+    <link rel="shortcut icon" href="Images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+    <link type="text/css" href="css/reset.css" rel="stylesheet" />
+    <link type="text/css" href="css/module.css" rel="stylesheet" />
+    <link type="text/css" href="css/main.css" rel="stylesheet" />
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/main.js"></script>
+    <script type="text/javascript" src="Scripts/leave-data.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .details-section-header {
+        background-color: #4a9ace;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 0.85rem;
+        padding: 5px 8px;
+      }
+      .details-table {
+        width: 100%;
+        border: 1px solid #cccccc;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+        margin-bottom: 0;
+      }
+      .details-table td {
+        padding: 6px 10px;
+        border-bottom: 1px solid #e8e8e8;
+        vertical-align: top;
+      }
+      .details-table td:first-child {
+        width: 180px;
+        color: #444;
+      }
+      .details-table td:nth-child(2) {
+        width: 20px;
+        color: #444;
+      }
+      .details-section {
+        border: 1px solid #cccccc;
+        margin-bottom: 15px;
+      }
+      .go-back-btn {
+        background-color: #211d70;
+        color: #ffffff;
+        border: none;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .go-back-btn:hover {
+        background-color: #1a1660;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="vsc-initialized">
+    <div class="note"></div>
+    <div id="main" align="center">
+      <table
+        id="t1"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        width="100%"
+        bgcolor="White"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <div id="Div1" align="left">
+                <div class="headerWrapper">
+                  <div class="headerWrapperFix">
+                    <h1 class="hidden"><span> </span> BITS Pilani</h1>
+                    <div class="logoWrapper">
+                      <a href="#" class="logo" target="_blank">
+                        <img
+                          src="https://academic.bits-pilani.ac.in/SWD/Student/Images/BITS_Pilani_campus_logo.gif"
+                          alt="BITS Logo"
+                        />
+                      </a>
+                    </div>
+
+                    <ul class="mainNav">
+                      <li>
+                        <a href="apply-leave.html">Apply For Leaves</a>
+                      </li>
+                      <li>
+                        <a
+                          href="Downloads/Parent's_Consent_Form.pdf"
+                          target="_blank"
+                          >Download Parent's Consent Form</a
+                        >
+                      </li>
+                      <li>
+                        <a href="index.html">Leaves Status</a>
+                      </li>
+                    </ul>
+
+                    <ul
+                      class="siteInfo"
+                      style="
+                        right: 110px;
+                        width: 380px;
+                        top: 8px;
+                        height: 50px;
+                      "
+                    >
+                      <li style="width: 500px; margin-top: -1rem; margin-left: -2rem;">
+                        <p class="siteLog" style="text-align: center">
+                          <br />
+                          <span style="font-size: 0.6em"
+                            >Student Welfare Division (SWD)
+                          </span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="body_txt_in" style="height: 30px">
+              <table id="UserInfo" style="width: 100%">
+                <tbody>
+                  <tr>
+                    <td width="60%" align="left" style="margin-left: 45px">
+                      <div style="font-size: 0.75rem;">
+                        <span style="color: #211d70"
+                          ><strong
+                            ><span style="color: #211d70"
+                              >&nbsp;&nbsp;&nbsp;&nbsp;W</span
+                            >elcome</strong
+                          >,</span
+                        >
+                        <span
+                          id="ctl00_Name"
+                          style="
+                            display: inline-block;
+                            color: #211d70;
+                            font-weight: bold;
+                            width: 469px;
+                            font-size: 0.8rem;
+                          "
+                          >&nbsp;</span
+                        >
+                      </div>
+                    </td>
+                    <td width="40%">
+                      <table id="table_logout_details" width="100%">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div
+                                id="div_logout"
+                                align="right"
+                                style="margin-right: 20px"
+                              >
+                                <span
+                                  id="ctl00_lbl_current_date"
+                                  style="color: #211d70; font-weight: bold; font-size: 0.75rem"
+                                  ></span
+                                >&nbsp;
+                                <span
+                                  style="color: #211d70; font-weight: bold"
+                                  >|</span
+                                >&nbsp;
+                                <a class="footer" href="Logout.aspx"
+                                  ><strong
+                                    ><span style="font-size: 8pt"
+                                      >[Logout]</span
+                                    ></strong
+                                  ></a
+                                >
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table
+                align="center"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="100%"
+              >
+                <tbody>
+                  <tr style="font-size: small;">
+                    <td
+                      id="contentpane"
+                      style="width: 100%; vertical-align: top"
+                    >
+                      <div align="center">
+                        <table
+                          border="0"
+                          cellpadding="0"
+                          align="center"
+                          cellspacing="0"
+                          style="width: 788px"
+                        >
+                          <tbody>
+                            <tr>
+                              <td style="height: 10px"></td>
+                            </tr>
+                            <tr valign="top">
+                              <td
+                                class="head_already"
+                                width="100%"
+                                style="height: 20px; margin-right: 150px"
+                              >
+                                <div align="center">Leaves Status</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="height: 10px"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <div style="width: 98%; max-width: 788px; margin: 0 auto;">
+                          <div style="text-align: right; margin-bottom: 10px;">
+                            <a href="index.html" class="go-back-btn">GO BACK &#8594;</a>
+                          </div>
+
+                          <div id="details-container">
+                            <!-- Student Details -->
+                            <div class="details-section">
+                              <div class="details-section-header">Student Details</div>
+                              <table class="details-table">
+                                <tbody>
+                                  <tr>
+                                    <td>IDNO</td>
+                                    <td>:</td>
+                                    <td><span id="detail-id" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Name</td>
+                                    <td>:</td>
+                                    <td><span id="detail-name" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>BITS Email ID</td>
+                                    <td>:</td>
+                                    <td><span id="detail-email"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Contact No.</td>
+                                    <td>:</td>
+                                    <td><span id="detail-contact" style="color: #0066cc;"></span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <!-- Hostel Details -->
+                            <div class="details-section">
+                              <div class="details-section-header">Hostel Details</div>
+                              <table class="details-table">
+                                <tbody>
+                                  <tr>
+                                    <td>Hostel</td>
+                                    <td>:</td>
+                                    <td><span id="detail-hostel" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Room No.</td>
+                                    <td>:</td>
+                                    <td><span id="detail-room" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Warden Name</td>
+                                    <td>:</td>
+                                    <td><span id="detail-warden" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Warden Email Id</td>
+                                    <td>:</td>
+                                    <td><span id="detail-warden-email"></span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <!-- Leave Details -->
+                            <div class="details-section">
+                              <div class="details-section-header">Leave Details</div>
+                              <table class="details-table">
+                                <tbody>
+                                  <tr>
+                                    <td>Departure Date</td>
+                                    <td>:</td>
+                                    <td><span id="detail-departure" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Return Date</td>
+                                    <td>:</td>
+                                    <td><span id="detail-return" style="color: #cc0000; font-weight: bold;"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Leave Reason</td>
+                                    <td>:</td>
+                                    <td><span id="detail-reason"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Leaves Applied On</td>
+                                    <td>:</td>
+                                    <td><span id="detail-applied-on"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Supporting Document</td>
+                                    <td>:</td>
+                                    <td><span id="detail-doc"></span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <!-- Approval Status -->
+                            <div class="details-section">
+                              <div class="details-section-header">Approval Status</div>
+                              <table class="details-table">
+                                <tbody>
+                                  <tr>
+                                    <td>Approval Status</td>
+                                    <td>:</td>
+                                    <td><span id="detail-status" style="color: DarkGreen; font-weight: bold;">Approved</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Approval Remarks</td>
+                                    <td>:</td>
+                                    <td><span id="detail-remarks"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Processed By</td>
+                                    <td>:</td>
+                                    <td><span id="detail-processed-by"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Processed On</td>
+                                    <td>:</td>
+                                    <td><span id="detail-processed-on"></span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <div id="details-not-found" style="display:none; color: #cc0000; text-align: center; padding: 20px;">
+                              Leave application not found. Please go back and try again.
+                            </div>
+                          </div>
+                        </div>
+
+                        <br /><br />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script type="text/javascript">
+      (function () {
+        var wardenByHostel = {
+          "Shankar Bhawan": "Prof. Sharad Shrivastava",
+          "Krishna Bhawan": "Prof. Bibhas Ranjan Sarkar",
+          "Srinivasa Ramanujan Bhawan": "Prof. Bibhas Ranjan Sarkar",
+          "Gandhi Bhawan": "Prof. Nitin Chaturvedi",
+          "Vishwakarma Bhawan": "Prof. Krishnendra Shekhawat",
+          "Meera Bhawan": "Prof. Surekha Bhanot",
+          "Vyas Bhawan": "Prof. Kumar Sankar Bhattacharya",
+          "Ram Bhawan": "Prof. Praveen Kumar A.V.",
+          "Budh Bhawan": "Prof. MM Pandey"
+        };
+
+        var wardenEmailByHostel = {
+          "Shankar Bhawan": "shankar.warden@pilani.bits-pilani.ac.in",
+          "Krishna Bhawan": "krishna.warden@pilani.bits-pilani.ac.in",
+          "Srinivasa Ramanujan Bhawan": "srinivasa.warden@pilani.bits-pilani.ac.in",
+          "Gandhi Bhawan": "gandhi.warden@pilani.bits-pilani.ac.in",
+          "Vishwakarma Bhawan": "vishwakarma.warden@pilani.bits-pilani.ac.in",
+          "Meera Bhawan": "meera.warden@pilani.bits-pilani.ac.in",
+          "Vyas Bhawan": "vyas.warden@pilani.bits-pilani.ac.in",
+          "Ram Bhawan": "ram.warden@pilani.bits-pilani.ac.in",
+          "Budh Bhawan": "budh.warden@pilani.bits-pilani.ac.in"
+        };
+
+        var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+        function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+        function formatDate(val) {
+          if (!val) return "";
+          var parts = val.split("-");
+          var d;
+          if (parts.length === 3 && parts[0].length === 4) {
+            d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+          } else {
+            d = new Date(val);
+          }
+          if (isNaN(d.getTime())) return val;
+          return pad(d.getDate()) + "-" + months[d.getMonth()] + "-" + d.getFullYear();
+        }
+
+        function formatDateTime(val) {
+          if (!val) return "";
+          var d = new Date(val);
+          if (isNaN(d.getTime())) return formatDate(val);
+          var h = d.getHours();
+          var m = d.getMinutes();
+          var ampm = h >= 12 ? "PM" : "AM";
+          h = h % 12 || 12;
+          return pad(d.getDate()) + "-" + months[d.getMonth()] + "-" + d.getFullYear() +
+                 " " + pad(h) + ":" + pad(m) + " " + ampm;
+        }
+
+        function bitsEmailFromId(id) {
+          if (!id) return "";
+          var match = id.match(/^(\d{4})[A-Z]\d[A-Z]{2}(\d{4})[A-Z]$/);
+          if (match) {
+            return "f" + match[1] + match[2] + "@pilani.bits-pilani.ac.in";
+          }
+          return "";
+        }
+
+        function setText(id, text) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = text || "";
+        }
+
+        function updateHeaderDate() {
+          var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+          var now = new Date();
+          var el = document.getElementById("ctl00_lbl_current_date");
+          if (el) {
+            el.textContent = days[now.getDay()] + ", " + months[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+          }
+        }
+
+        function getParams() {
+          var params = {};
+          var search = window.location.search.replace(/^\?/, "");
+          search.split("&").forEach(function (pair) {
+            var kv = pair.split("=");
+            if (kv.length === 2) {
+              params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+            }
+          });
+          return params;
+        }
+
+        function init() {
+          updateHeaderDate();
+
+          var params = getParams();
+          var idx = parseInt(params.idx, 10);
+
+          var leaves = window.HelpBitsLeaves ? window.HelpBitsLeaves.getLeaves() : [];
+          var leave = (!isNaN(idx) && idx >= 0 && idx < leaves.length) ? leaves[idx] : null;
+
+          if (!leave) {
+            document.getElementById("details-container").style.display = "none";
+            document.getElementById("details-not-found").style.display = "block";
+            return;
+          }
+
+          var nameUpper = (leave.name || "").toUpperCase();
+          setText("ctl00_Name", nameUpper);
+
+          setText("detail-id", leave.id || "");
+          setText("detail-name", nameUpper);
+          setText("detail-email", bitsEmailFromId(leave.id));
+          setText("detail-contact", leave.contact || "");
+
+          var hostel = leave.hostel || "";
+          setText("detail-hostel", hostel);
+          setText("detail-room", leave.room || "");
+          setText("detail-warden", wardenByHostel[hostel] || "");
+          setText("detail-warden-email", wardenEmailByHostel[hostel] || "");
+
+          setText("detail-departure", formatDate(leave.departureDate));
+          setText("detail-return", formatDate(leave.returnDate));
+          setText("detail-reason", leave.reason || "");
+          setText("detail-applied-on", formatDateTime(leave.appliedOn));
+
+          var docEl = document.getElementById("detail-doc");
+          if (docEl) {
+            if (leave.pdfDataUrl) {
+              var a = document.createElement("a");
+              a.href = leave.pdfDataUrl;
+              a.target = "_blank";
+              a.textContent = "View Supporting Document";
+              a.style.color = "#0066cc";
+              docEl.appendChild(a);
+            } else {
+              docEl.textContent = "N/A";
+            }
+          }
+
+          var warden = wardenByHostel[hostel] || "";
+          setText("detail-processed-by", warden);
+
+          var processedDate = leave.appliedOn ? new Date(leave.appliedOn) : null;
+          if (processedDate && !isNaN(processedDate.getTime())) {
+            processedDate.setDate(processedDate.getDate() + 1);
+            processedDate.setHours(8, 56, 0, 0);
+            setText("detail-processed-on", formatDateTime(processedDate.toISOString()));
+          }
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>
